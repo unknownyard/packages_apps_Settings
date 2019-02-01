@@ -38,6 +38,7 @@ import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
 import androidx.preference.Preference;
 
+import com.android.internal.util.spark.SparkUtils;
 import com.android.settings.R;
 import com.android.settings.SettingsActivity;
 import com.android.settings.Utils;
@@ -98,8 +99,6 @@ public class PowerUsageSummary extends PowerUsageBase implements
     Preference mHelpPreference;
     @VisibleForTesting
     Preference mBatteryUsagePreference;
-
-    private boolean batteryTemp = false;
 
     @VisibleForTesting
     final ContentObserver mSettingsObserver = new ContentObserver(new Handler()) {
@@ -189,7 +188,6 @@ public class PowerUsageSummary extends PowerUsageBase implements
         }
         mBatteryTipPreferenceController.restoreInstanceState(icicle);
         updateBatteryTipFlag(icicle);
-        updateBatteryTempPreference();
     }
 
     @Override
@@ -201,8 +199,6 @@ public class PowerUsageSummary extends PowerUsageBase implements
                         .setTitleRes(R.string.advanced_battery_title)
                         .launch();
             return true;
-        } else if (KEY_BATTERY_TEMP.equals(preference.getKey())) {
-            updateBatteryTempPreference();
         }
         return super.onPreferenceTreeClick(preference);
     }
@@ -305,7 +301,9 @@ public class PowerUsageSummary extends PowerUsageBase implements
         // reload BatteryInfo and updateUI
         restartBatteryInfoLoader();
         mBatteryTemp.setSubtitle(
-                com.android.internal.util.spark.SparkUtils.batteryTemperature(getContext(), batteryTemp));
+                SparkUtils.mccCheck(getContext()) ?
+                SparkUtils.batteryTemperature(getContext(), true) + "°F" :
+                SparkUtils.batteryTemperature(getContext(), false) + "°C");
     }
 
     @VisibleForTesting
