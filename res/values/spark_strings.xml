@@ -45,10 +45,6 @@
     <string name="fireworks_title">Fireworks</string>
     <string name="build_tweaks_summary_title">Customizations and more !</string>
 
-    <!-- Battery stats reset -->
-    <string name="battery_stats_reset">Reset stats</string>
-    <string name="battery_stats_message">Battery history stats are going to be reset</string>
-
     <!-- Scramble pin -->
     <string name="unlock_scramble_pin_layout_title">Scramble layout</string>
     <string name="unlock_scramble_pin_layout_summary">Scramble PIN layout when unlocking device</string>
@@ -87,6 +83,11 @@
 
     <!-- Battery temp -->
     <string name="battery_temp_title">Battery temperature</string>
+    
+    <!-- Battery stats reset -->
+    <string name="battery_stats_reset">Clear usage data?</string>
+    <string name="battery_stats_message">Battery usage data will be lost</string>
+    <string name="battery_stats_clear" translatable="false">@string/proxy_clear_text</string>
 
     <!-- Battery health -->
     <string name="battery_health_title">Battery health</string>

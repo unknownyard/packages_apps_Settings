@@ -294,7 +294,7 @@ public class PowerUsageSummary extends PowerUsageBase implements
         AlertDialog dialog = new AlertDialog.Builder(getActivity())
             .setTitle(R.string.battery_stats_reset)
             .setMessage(R.string.battery_stats_message)
-            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            .setPositiveButton(R.string.battery_stats_clear, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     batteryManager.resetStatistics();
@@ -358,9 +358,6 @@ public class PowerUsageSummary extends PowerUsageBase implements
                 SparkUtils.mccCheck(getContext()) ?
                 SparkUtils.batteryTemperature(getContext(), true) + "°F" :
                 SparkUtils.batteryTemperature(getContext(), false) + "°C");
-        
-        mCurrentBatteryCapacity.setSubtitle(parseBatterymAhText(FILENAME_BATTERY_CURRENT_CAPACITY));
-        mDesignedBatteryCapacity.setSubtitle(parseBatterymAhText(FILENAME_BATTERY_DESIGN_CAPACITY));
     }
 
     @VisibleForTesting
@@ -371,19 +368,6 @@ public class PowerUsageSummary extends PowerUsageBase implements
     @VisibleForTesting
     void setBatteryLayoutPreference(LayoutPreference layoutPreference) {
         mBatteryLayoutPref = layoutPreference;
-    }
-
-    @VisibleForTesting
-    void updateBatteryTempPreference() {
-        if (batteryTemp) {
-            mBatteryTemp.setSubtitle(
-                com.android.internal.util.spark.SparkUtils.batteryTemperature(getContext(), false));
-            batteryTemp = false;
-        } else {
-            mBatteryTemp.setSubtitle(
-                com.android.internal.util.spark.SparkUtils.batteryTemperature(getContext(), true));
-            batteryTemp = true;
-        }
     }
 
     @VisibleForTesting
